@@ -1,0 +1,4 @@
+recbole==1.2.0
+causal-conv1d>=1.2.0
+mamba-ssm==2.2.2
+s5-pytorch==0.2.1
