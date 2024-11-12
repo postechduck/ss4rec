@@ -1,5 +1,5 @@
 # SS4Rec
-## SS4Rec: A Universal Prompt-Tuning Framework for Graph Contrastive Learning-Based Recommendations (Under review)
+## Continuous-Time Sequential Recommendation with State Space Models (Under review)
 ![image](https://github.com/Blank141/SS4Rec/blob/main/ss4rec.png)
 ## Requirements
 ```
