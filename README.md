@@ -2,6 +2,8 @@
 
 [Wei Xiao*](https://xiaowei-i.github.io), Huiying Wang*, Qifeng Zhou, Qing Wang
 
+[Paper](https://arxiv.org/abs/2502.08132)
+
 ![image](https://github.com/Blank141/SS4Rec/blob/main/ss4rec.png)
 ## Requirements
 ```
