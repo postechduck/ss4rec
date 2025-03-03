@@ -1,5 +1,9 @@
 # Continuous-Time Sequential Recommendation with State Space Models 
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/ss4rec-continuous-time-sequential/sequential-recommendation-on-amazon-sports)](https://paperswithcode.com/sota/sequential-recommendation-on-amazon-sports?p=ss4rec-continuous-time-sequential)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/ss4rec-continuous-time-sequential/sequential-recommendation-on-amazon-video)](https://paperswithcode.com/sota/sequential-recommendation-on-amazon-video?p=ss4rec-continuous-time-sequential)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/ss4rec-continuous-time-sequential/sequential-recommendation-on-movielens-1m)](https://paperswithcode.com/sota/sequential-recommendation-on-movielens-1m?p=ss4rec-continuous-time-sequential)
+
 [Wei Xiao*](https://xiaowei-i.github.io), Huiying Wang*, Qifeng Zhou, Qing Wang
 
 [Paper](https://arxiv.org/abs/2502.08132)
