@@ -1,0 +1,52 @@
+Collecting causal-conv1d
+  Using cached causal_conv1d-1.5.2.tar.gz (23 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: torch in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from causal-conv1d) (2.8.0)
+Requirement already satisfied: packaging in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from causal-conv1d) (25.0)
+Collecting ninja (from causal-conv1d)
+  Using cached ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.1 kB)
+Requirement already satisfied: filelock in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (3.19.1)
+Requirement already satisfied: typing-extensions>=4.10.0 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (4.15.0)
+Requirement already satisfied: sympy>=1.13.3 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (1.14.0)
+Requirement already satisfied: networkx in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (3.2.1)
+Requirement already satisfied: jinja2 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (3.1.6)
+Requirement already satisfied: fsspec in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (2025.9.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.93 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (12.8.93)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.90 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (12.8.90)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.90 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (12.8.90)
+Requirement already satisfied: nvidia-cudnn-cu12==9.10.2.21 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (9.10.2.21)
+Requirement already satisfied: nvidia-cublas-cu12==12.8.4.1 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (12.8.4.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.3.83 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (11.3.3.83)
+Requirement already satisfied: nvidia-curand-cu12==10.3.9.90 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (10.3.9.90)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.3.90 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (11.7.3.90)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.8.93 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (12.5.8.93)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.7.1 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (0.7.1)
+Requirement already satisfied: nvidia-nccl-cu12==2.27.3 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (2.27.3)
+Requirement already satisfied: nvidia-nvtx-cu12==12.8.90 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (12.8.90)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.93 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (12.8.93)
+Requirement already satisfied: nvidia-cufile-cu12==1.13.1.3 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (1.13.1.3)
+Requirement already satisfied: triton==3.4.0 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from torch->causal-conv1d) (3.4.0)
+Requirement already satisfied: setuptools>=40.8.0 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from triton==3.4.0->torch->causal-conv1d) (80.9.0)
+Requirement already satisfied: importlib-metadata in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from triton==3.4.0->torch->causal-conv1d) (8.7.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from sympy>=1.13.3->torch->causal-conv1d) (1.3.0)
+Requirement already satisfied: zipp>=3.20 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from importlib-metadata->triton==3.4.0->torch->causal-conv1d) (3.23.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /home/pkw_ime25/miniconda/envs/ss4rec/lib/python3.9/site-packages (from jinja2->torch->causal-conv1d) (3.0.2)
+Using cached ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (180 kB)
+Building wheels for collected packages: causal-conv1d
+  Building wheel for causal-conv1d (pyproject.toml): started
+  Building wheel for causal-conv1d (pyproject.toml): still running...
+  Building wheel for causal-conv1d (pyproject.toml): still running...
+  Building wheel for causal-conv1d (pyproject.toml): still running...
+  Building wheel for causal-conv1d (pyproject.toml): still running...
+  Building wheel for causal-conv1d (pyproject.toml): finished with status 'done'
+  Created wheel for causal-conv1d: filename=causal_conv1d-1.5.2-cp39-cp39-linux_x86_64.whl size=101002240 sha256=efe666055fcaa284baec285fae92e90c95aa58210805df6ee9d9faa42f734fce
+  Stored in directory: /home/pkw_ime25/.cache/pip/wheels/7b/d9/5a/cfce320d5b9ac020395cfc502fa8da484fa38d49f797d31252
+Successfully built causal-conv1d
+Installing collected packages: ninja, causal-conv1d
+
+Successfully installed causal-conv1d-1.5.2 ninja-1.13.0

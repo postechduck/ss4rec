@@ -19,6 +19,7 @@ d_P: 32
 
 
 # dataset settings
+data_path: dataset   # ← 상위 폴더(부모 디렉터리)
 dataset: ml-1m
 # dataset: amazon-sports
 # dataset: amazon-video-games
@@ -54,3 +55,21 @@ eval_batch_size: 2048
 weight_decay: 0.0
 topk: [10]
 next_n: 1
+
+# >>> 여기만 변경/추가 <<<
+load_col:
+  inter: [user_id, item_id, timestamp]
+  user:  [user_id, age_idx, gender_idx, job_idx]
+
+# (NEW) User-embedding & SSE
+user_hidden_size: 32        # 멀티핫→Linear 출력차원
+
+# ===== user classes (ML-1M 기준) =====
+ml1m_age_classes: 7
+ml1m_gender_classes: 2
+ml1m_job_classes: 21
+
+# ===== regularization (SSE) =====
+sse_user_p: 0.10            # 배치 내 유저 임베딩을 섞는 확률
+sse_item_p: 0.10            # 아이템(시퀀스) 임베딩을 섞는 확률
+sse_item_mode: 'global'      # 'batch' | 'global'
