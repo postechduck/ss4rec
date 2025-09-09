@@ -70,6 +70,7 @@ ml1m_gender_classes: 2
 ml1m_job_classes: 21
 
 # ===== regularization (SSE) =====
-sse_user_p: 0.10            # 배치 내 유저 임베딩을 섞는 확률
-sse_item_p: 0.10            # 아이템(시퀀스) 임베딩을 섞는 확률
+sse_user_p: 0.00            # 배치 내 유저 임베딩을 섞는 확률
+sse_item_p: 0.00            # 아이템(시퀀스) 임베딩을 섞는 확률
+sse_pos_p: 0.00             # 정답 임베딩을 섞는 확률
 sse_item_mode: 'global'      # 'batch' | 'global'

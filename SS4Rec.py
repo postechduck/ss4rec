@@ -79,8 +79,8 @@ class SS4Rec(SequentialRecommender):
         # === ADDED: SSE hyperparams ===
         self.sse_user_p   = float(config['sse_user_p'])   if 'sse_user_p'   in config else 0.0
         self.sse_item_p   = float(config['sse_item_p'])   if 'sse_item_p'   in config else 0.0
+        self.sse_pos_p = float(config['sse_pos_p']) if 'sse_pos_p'   in config else 0.0
         self.sse_item_mode = str(config['sse_item_mode']) if 'sse_item_mode' in config else 'global'  # or 'batch'
-
         # (cache item vocab size for global item SSE)
         self.n_items_cached = getattr(self.item_embedding, "num_embeddings", None)
 
@@ -196,13 +196,52 @@ class SS4Rec(SequentialRecommender):
             neg_items = interaction[self.NEG_ITEM_ID]
             pos_items_emb = self.item_embedding(pos_items)
             neg_items_emb = self.item_embedding(neg_items)
+            # === SSE on POS-ITEM (BPR) : START ===
+            if self.training and getattr(self, "sse_pos_p", 0.0) > 0.0:
+                B = pos_items_emb.size(0)
+                device = pos_items_emb.device
+                mask_b = (torch.rand(B, device=device) < self.sse_pos_p)  # [B] bool
+                if mask_b.any():
+                    n_items = self.item_embedding.num_embeddings
+                    # padding=0 회피: [1, n_items)에서 샘플
+                    alt_ids = torch.randint(low=1, high=n_items, size=(int(mask_b.sum()),), device=device)
+                    # (안전) 우연히 동일 id가 뽑히면 다음 id로 치환
+                    pos_ids_masked = pos_items[mask_b]
+                    alt_ids = torch.where(alt_ids == pos_ids_masked, (alt_ids + 1) % n_items, alt_ids)
+                    alt_emb = self.item_embedding(alt_ids)                 # [M, D]
+                    # 선택적으로 pos 임베딩 치환
+                    pos_items_emb[mask_b] = alt_emb
+            # === SSE on POS-ITEM (BPR) : END ===
             pos_score = torch.sum(seq_output * pos_items_emb, dim=-1)  # [B]
             neg_score = torch.sum(seq_output * neg_items_emb, dim=-1)  # [B]
             loss = self.loss_fct(pos_score, neg_score)
             return loss
         else:  # self.loss_type = 'CE'
-            test_item_emb = self.item_embedding.weight
-            logits = torch.matmul(seq_output, test_item_emb.transpose(0, 1))
+            W = self.item_embedding.weight  # [n_items, D]
+            o = seq_output                  # [B, D]
+
+            # === SSE on POS-ITEM (CE) : START ===
+            if self.training and getattr(self, "sse_pos_p", 0.0) > 0.0:
+                B = o.size(0)
+                device = o.device
+                mask_b = (torch.rand(B, device=device) < self.sse_pos_p)  # [B] bool
+                if mask_b.any():
+                    n_items = self.item_embedding.num_embeddings
+                    pos_ids_masked = pos_items[mask_b]                    # [M]
+                    alt_ids = torch.randint(low=1, high=n_items, size=(int(mask_b.sum()),), device=device)
+                    alt_ids = torch.where(alt_ids == pos_ids_masked, (alt_ids + 1) % n_items, alt_ids)
+
+                    # 주의: W를 직접 in-place 수정하지 않고, 사본 위에서만 치환
+                    W_mod = W.clone()
+                    W_mod[pos_ids_masked] = W[alt_ids]                   # 정답 행(row) 일시 치환
+
+                    logits = torch.matmul(o, W_mod.transpose(0, 1))      # [B, n_items]
+                else:
+                    logits = torch.matmul(o, W.transpose(0, 1))
+            else:
+                logits = torch.matmul(o, W.transpose(0, 1))
+            # === SSE on POS-ITEM (CE) : END ===
+
             loss = self.loss_fct(logits, pos_items)
             return loss
 
