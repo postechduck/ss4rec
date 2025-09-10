@@ -1,0 +1,496 @@
+Tue 09 Sep 2025 20:17:26 INFO  ['run.py', '--config', '2']
+Tue 09 Sep 2025 20:17:26 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = dataset/ml-1m
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 200
+train_batch_size = 1024
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = True
+metrics = ['Hit', 'NDCG', 'MRR']
+topk = [10]
+valid_metric = NDCG@10
+valid_metric_bigger = True
+eval_batch_size = 2048
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id', 'timestamp'], 'user': ['user_id', 'age_idx', 'gender_idx', 'job_idx']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [5,inf)
+item_inter_num_interval = [5,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 200
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.SEQUENTIAL
+hidden_size = 64
+num_layers = 2
+dropout_prob = 0.2
+loss_type = CE
+d_state = 32
+d_conv = 4
+expand = 2
+dt_min = 0.001
+dt_max = 0.1
+d_H = 64
+d_P = 32
+MIN_ITEM_LIST_LENGTH = 0
+TIMESTAMP_FIELD = timestamp
+next_n = 1
+user_hidden_size = 32
+ml1m_age_classes = 7
+ml1m_gender_classes = 2
+ml1m_job_classes = 21
+sse_user_p = 0.0
+sse_item_p = 0.0
+sse_pos_p = 0.0
+sse_item_mode = global
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cuda
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Tue 09 Sep 2025 20:17:29 INFO  ml-1m
+The number of users: 6041
+Average actions of users: 165.49850993377484
+The number of items: 3417
+Average actions of items: 292.6261709601874
+The number of inters: 999611
+The sparsity of the dataset: 95.15741545057172%
+Remain Fields: ['user_id', 'item_id', 'timestamp']
+Tue 09 Sep 2025 20:17:29 INFO  Augmentation for sequential recommendation.
+Tue 09 Sep 2025 20:17:44 INFO  [Training]: train_batch_size = [1024] train_neg_sample_args: [{'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}]
+Tue 09 Sep 2025 20:17:44 INFO  [Evaluation]: eval_batch_size = [2048] eval_args: [{'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Tue 09 Sep 2025 20:17:44 INFO  ml-1m
+The number of users: 6041
+Average actions of users: 162.49850993377484
+The number of items: 3417
+Average actions of items: 287.3217213114754
+The number of inters: 981491
+The sparsity of the dataset: 95.24519722971945%
+Remain Fields: ['user_id', 'item_id', 'timestamp', 'item_id_list', 'timestamp_list', 'item_length']
+Tue 09 Sep 2025 20:17:44 INFO  SS4Rec(
+  (item_embedding): Embedding(3417, 64, padding_idx=0)
+  (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+  (dropout): Dropout(p=0.2, inplace=False)
+  (model): ModuleList(
+    (0-1): 2 x SSBlock(
+      (S5): S5(
+        (seq): S5SSM()
+      )
+      (S6): Mamba(
+        (in_proj): Linear(in_features=64, out_features=256, bias=False)
+        (conv1d): Conv1d(128, 128, kernel_size=(4,), stride=(1,), padding=(3,), groups=128)
+        (act): SiLU()
+        (x_proj): Linear(in_features=128, out_features=68, bias=False)
+        (dt_proj): Linear(in_features=4, out_features=128, bias=True)
+        (out_proj): Linear(in_features=128, out_features=64, bias=False)
+      )
+      (dropout): Dropout(p=0.2, inplace=False)
+      (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+    )
+  )
+  (loss_fct): CrossEntropyLoss()
+)
+Trainable parameters: 309184
+Tue 09 Sep 2025 20:23:04 INFO  epoch 0 training [time: 319.88s, train loss: 6066.9828]
+Tue 09 Sep 2025 20:23:04 INFO  epoch 0 evaluating [time: 0.33s, valid_score: 0.123400]
+Tue 09 Sep 2025 20:23:04 INFO  valid result: 
+hit@10 : 0.2394    ndcg@10 : 0.1234    mrr@10 : 0.0882
+Tue 09 Sep 2025 20:23:04 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 20:28:28 INFO  epoch 1 training [time: 323.21s, train loss: 5141.3593]
+Tue 09 Sep 2025 20:28:28 INFO  epoch 1 evaluating [time: 0.30s, valid_score: 0.154700]
+Tue 09 Sep 2025 20:28:28 INFO  valid result: 
+hit@10 : 0.2922    ndcg@10 : 0.1547    mrr@10 : 0.113
+Tue 09 Sep 2025 20:28:28 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 20:33:51 INFO  epoch 2 training [time: 323.34s, train loss: 4937.4575]
+Tue 09 Sep 2025 20:33:52 INFO  epoch 2 evaluating [time: 0.30s, valid_score: 0.170500]
+Tue 09 Sep 2025 20:33:52 INFO  valid result: 
+hit@10 : 0.3084    ndcg@10 : 0.1705    mrr@10 : 0.1283
+Tue 09 Sep 2025 20:33:52 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 20:39:15 INFO  epoch 3 training [time: 323.71s, train loss: 4834.4730]
+Tue 09 Sep 2025 20:39:16 INFO  epoch 3 evaluating [time: 0.30s, valid_score: 0.174900]
+Tue 09 Sep 2025 20:39:16 INFO  valid result: 
+hit@10 : 0.3174    ndcg@10 : 0.1749    mrr@10 : 0.1316
+Tue 09 Sep 2025 20:39:16 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 20:44:39 INFO  epoch 4 training [time: 323.14s, train loss: 4750.4808]
+Tue 09 Sep 2025 20:44:39 INFO  epoch 4 evaluating [time: 0.30s, valid_score: 0.184700]
+Tue 09 Sep 2025 20:44:39 INFO  valid result: 
+hit@10 : 0.3329    ndcg@10 : 0.1847    mrr@10 : 0.1396
+Tue 09 Sep 2025 20:44:39 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 20:50:02 INFO  epoch 5 training [time: 322.92s, train loss: 4694.5773]
+Tue 09 Sep 2025 20:50:03 INFO  epoch 5 evaluating [time: 0.30s, valid_score: 0.185200]
+Tue 09 Sep 2025 20:50:03 INFO  valid result: 
+hit@10 : 0.3361    ndcg@10 : 0.1852    mrr@10 : 0.1394
+Tue 09 Sep 2025 20:50:03 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 20:55:25 INFO  epoch 6 training [time: 322.69s, train loss: 4655.5504]
+Tue 09 Sep 2025 20:55:26 INFO  epoch 6 evaluating [time: 0.30s, valid_score: 0.188700]
+Tue 09 Sep 2025 20:55:26 INFO  valid result: 
+hit@10 : 0.3338    ndcg@10 : 0.1887    mrr@10 : 0.1442
+Tue 09 Sep 2025 20:55:26 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:00:49 INFO  epoch 7 training [time: 322.97s, train loss: 4628.5427]
+Tue 09 Sep 2025 21:00:49 INFO  epoch 7 evaluating [time: 0.30s, valid_score: 0.192000]
+Tue 09 Sep 2025 21:00:49 INFO  valid result: 
+hit@10 : 0.3435    ndcg@10 : 0.192    mrr@10 : 0.1456
+Tue 09 Sep 2025 21:00:49 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:06:12 INFO  epoch 8 training [time: 323.30s, train loss: 4604.4219]
+Tue 09 Sep 2025 21:06:12 INFO  epoch 8 evaluating [time: 0.30s, valid_score: 0.193000]
+Tue 09 Sep 2025 21:06:12 INFO  valid result: 
+hit@10 : 0.3475    ndcg@10 : 0.193    mrr@10 : 0.1457
+Tue 09 Sep 2025 21:06:12 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:11:36 INFO  epoch 9 training [time: 323.01s, train loss: 4586.1514]
+Tue 09 Sep 2025 21:11:36 INFO  epoch 9 evaluating [time: 0.30s, valid_score: 0.196800]
+Tue 09 Sep 2025 21:11:36 INFO  valid result: 
+hit@10 : 0.3507    ndcg@10 : 0.1968    mrr@10 : 0.1497
+Tue 09 Sep 2025 21:11:36 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:16:59 INFO  epoch 10 training [time: 322.70s, train loss: 4569.8977]
+Tue 09 Sep 2025 21:16:59 INFO  epoch 10 evaluating [time: 0.30s, valid_score: 0.196500]
+Tue 09 Sep 2025 21:16:59 INFO  valid result: 
+hit@10 : 0.352    ndcg@10 : 0.1965    mrr@10 : 0.1492
+Tue 09 Sep 2025 21:22:22 INFO  epoch 11 training [time: 322.80s, train loss: 4554.7170]
+Tue 09 Sep 2025 21:22:22 INFO  epoch 11 evaluating [time: 0.30s, valid_score: 0.195700]
+Tue 09 Sep 2025 21:22:22 INFO  valid result: 
+hit@10 : 0.3469    ndcg@10 : 0.1957    mrr@10 : 0.1495
+Tue 09 Sep 2025 21:27:45 INFO  epoch 12 training [time: 323.07s, train loss: 4543.2678]
+Tue 09 Sep 2025 21:27:45 INFO  epoch 12 evaluating [time: 0.30s, valid_score: 0.198700]
+Tue 09 Sep 2025 21:27:45 INFO  valid result: 
+hit@10 : 0.3541    ndcg@10 : 0.1987    mrr@10 : 0.1515
+Tue 09 Sep 2025 21:27:45 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:33:08 INFO  epoch 13 training [time: 322.23s, train loss: 4532.2771]
+Tue 09 Sep 2025 21:33:08 INFO  epoch 13 evaluating [time: 0.30s, valid_score: 0.202500]
+Tue 09 Sep 2025 21:33:08 INFO  valid result: 
+hit@10 : 0.3604    ndcg@10 : 0.2025    mrr@10 : 0.1545
+Tue 09 Sep 2025 21:33:08 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:38:31 INFO  epoch 14 training [time: 322.77s, train loss: 4519.8268]
+Tue 09 Sep 2025 21:38:31 INFO  epoch 14 evaluating [time: 0.30s, valid_score: 0.202500]
+Tue 09 Sep 2025 21:38:31 INFO  valid result: 
+hit@10 : 0.3558    ndcg@10 : 0.2025    mrr@10 : 0.1557
+Tue 09 Sep 2025 21:38:31 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:43:54 INFO  epoch 15 training [time: 323.01s, train loss: 4512.4477]
+Tue 09 Sep 2025 21:43:54 INFO  epoch 15 evaluating [time: 0.30s, valid_score: 0.203700]
+Tue 09 Sep 2025 21:43:54 INFO  valid result: 
+hit@10 : 0.3604    ndcg@10 : 0.2037    mrr@10 : 0.1559
+Tue 09 Sep 2025 21:43:54 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:49:20 INFO  epoch 16 training [time: 325.08s, train loss: 4504.4381]
+Tue 09 Sep 2025 21:49:20 INFO  epoch 16 evaluating [time: 0.30s, valid_score: 0.204800]
+Tue 09 Sep 2025 21:49:20 INFO  valid result: 
+hit@10 : 0.3578    ndcg@10 : 0.2048    mrr@10 : 0.1581
+Tue 09 Sep 2025 21:49:20 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 21:54:43 INFO  epoch 17 training [time: 323.52s, train loss: 4494.7021]
+Tue 09 Sep 2025 21:54:44 INFO  epoch 17 evaluating [time: 0.30s, valid_score: 0.202900]
+Tue 09 Sep 2025 21:54:44 INFO  valid result: 
+hit@10 : 0.3586    ndcg@10 : 0.2029    mrr@10 : 0.1552
+Tue 09 Sep 2025 21:59:59 INFO  epoch 18 training [time: 315.34s, train loss: 4489.2070]
+Tue 09 Sep 2025 21:59:59 INFO  epoch 18 evaluating [time: 0.29s, valid_score: 0.204000]
+Tue 09 Sep 2025 21:59:59 INFO  valid result: 
+hit@10 : 0.3606    ndcg@10 : 0.204    mrr@10 : 0.1563
+Tue 09 Sep 2025 22:05:17 INFO  epoch 19 training [time: 317.36s, train loss: 4481.3935]
+Tue 09 Sep 2025 22:05:17 INFO  epoch 19 evaluating [time: 0.30s, valid_score: 0.207700]
+Tue 09 Sep 2025 22:05:17 INFO  valid result: 
+hit@10 : 0.3669    ndcg@10 : 0.2077    mrr@10 : 0.1592
+Tue 09 Sep 2025 22:05:17 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 22:10:40 INFO  epoch 20 training [time: 322.84s, train loss: 4473.9925]
+Tue 09 Sep 2025 22:10:40 INFO  epoch 20 evaluating [time: 0.29s, valid_score: 0.205700]
+Tue 09 Sep 2025 22:10:40 INFO  valid result: 
+hit@10 : 0.3611    ndcg@10 : 0.2057    mrr@10 : 0.1582
+Tue 09 Sep 2025 22:16:03 INFO  epoch 21 training [time: 323.10s, train loss: 4468.6251]
+Tue 09 Sep 2025 22:16:04 INFO  epoch 21 evaluating [time: 0.30s, valid_score: 0.210400]
+Tue 09 Sep 2025 22:16:04 INFO  valid result: 
+hit@10 : 0.3662    ndcg@10 : 0.2104    mrr@10 : 0.163
+Tue 09 Sep 2025 22:16:04 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 22:21:27 INFO  epoch 22 training [time: 323.17s, train loss: 4462.0045]
+Tue 09 Sep 2025 22:21:27 INFO  epoch 22 evaluating [time: 0.30s, valid_score: 0.208000]
+Tue 09 Sep 2025 22:21:27 INFO  valid result: 
+hit@10 : 0.3656    ndcg@10 : 0.208    mrr@10 : 0.1599
+Tue 09 Sep 2025 22:26:49 INFO  epoch 23 training [time: 322.39s, train loss: 4456.5531]
+Tue 09 Sep 2025 22:26:50 INFO  epoch 23 evaluating [time: 0.29s, valid_score: 0.206000]
+Tue 09 Sep 2025 22:26:50 INFO  valid result: 
+hit@10 : 0.3555    ndcg@10 : 0.206    mrr@10 : 0.1602
+Tue 09 Sep 2025 22:32:08 INFO  epoch 24 training [time: 317.80s, train loss: 4451.2645]
+Tue 09 Sep 2025 22:32:08 INFO  epoch 24 evaluating [time: 0.30s, valid_score: 0.208700]
+Tue 09 Sep 2025 22:32:08 INFO  valid result: 
+hit@10 : 0.3642    ndcg@10 : 0.2087    mrr@10 : 0.1611
+Tue 09 Sep 2025 22:37:31 INFO  epoch 25 training [time: 323.04s, train loss: 4446.2244]
+Tue 09 Sep 2025 22:37:31 INFO  epoch 25 evaluating [time: 0.30s, valid_score: 0.210100]
+Tue 09 Sep 2025 22:37:31 INFO  valid result: 
+hit@10 : 0.3654    ndcg@10 : 0.2101    mrr@10 : 0.1625
+Tue 09 Sep 2025 22:42:54 INFO  epoch 26 training [time: 322.84s, train loss: 4441.5657]
+Tue 09 Sep 2025 22:42:54 INFO  epoch 26 evaluating [time: 0.29s, valid_score: 0.208800]
+Tue 09 Sep 2025 22:42:54 INFO  valid result: 
+hit@10 : 0.3695    ndcg@10 : 0.2088    mrr@10 : 0.1597
+Tue 09 Sep 2025 22:48:16 INFO  epoch 27 training [time: 321.55s, train loss: 4437.4899]
+Tue 09 Sep 2025 22:48:16 INFO  epoch 27 evaluating [time: 0.30s, valid_score: 0.212900]
+Tue 09 Sep 2025 22:48:16 INFO  valid result: 
+hit@10 : 0.3695    ndcg@10 : 0.2129    mrr@10 : 0.1651
+Tue 09 Sep 2025 22:48:16 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 22:53:38 INFO  epoch 28 training [time: 321.76s, train loss: 4432.6383]
+Tue 09 Sep 2025 22:53:38 INFO  epoch 28 evaluating [time: 0.29s, valid_score: 0.210400]
+Tue 09 Sep 2025 22:53:38 INFO  valid result: 
+hit@10 : 0.3654    ndcg@10 : 0.2104    mrr@10 : 0.1631
+Tue 09 Sep 2025 22:59:00 INFO  epoch 29 training [time: 321.96s, train loss: 4428.5716]
+Tue 09 Sep 2025 22:59:01 INFO  epoch 29 evaluating [time: 0.30s, valid_score: 0.208600]
+Tue 09 Sep 2025 22:59:01 INFO  valid result: 
+hit@10 : 0.3632    ndcg@10 : 0.2086    mrr@10 : 0.1614
+Tue 09 Sep 2025 23:04:23 INFO  epoch 30 training [time: 322.12s, train loss: 4425.0871]
+Tue 09 Sep 2025 23:04:23 INFO  epoch 30 evaluating [time: 0.29s, valid_score: 0.213800]
+Tue 09 Sep 2025 23:04:23 INFO  valid result: 
+hit@10 : 0.3674    ndcg@10 : 0.2138    mrr@10 : 0.1668
+Tue 09 Sep 2025 23:04:23 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 23:09:45 INFO  epoch 31 training [time: 321.60s, train loss: 4422.2039]
+Tue 09 Sep 2025 23:09:45 INFO  epoch 31 evaluating [time: 0.29s, valid_score: 0.210400]
+Tue 09 Sep 2025 23:09:45 INFO  valid result: 
+hit@10 : 0.3626    ndcg@10 : 0.2104    mrr@10 : 0.1638
+Tue 09 Sep 2025 23:15:07 INFO  epoch 32 training [time: 321.66s, train loss: 4418.1559]
+Tue 09 Sep 2025 23:15:07 INFO  epoch 32 evaluating [time: 0.30s, valid_score: 0.208600]
+Tue 09 Sep 2025 23:15:07 INFO  valid result: 
+hit@10 : 0.3619    ndcg@10 : 0.2086    mrr@10 : 0.1617
+Tue 09 Sep 2025 23:20:30 INFO  epoch 33 training [time: 322.90s, train loss: 4414.5520]
+Tue 09 Sep 2025 23:20:30 INFO  epoch 33 evaluating [time: 0.30s, valid_score: 0.212700]
+Tue 09 Sep 2025 23:20:30 INFO  valid result: 
+hit@10 : 0.37    ndcg@10 : 0.2127    mrr@10 : 0.1646
+Tue 09 Sep 2025 23:25:53 INFO  epoch 34 training [time: 322.49s, train loss: 4411.2158]
+Tue 09 Sep 2025 23:25:53 INFO  epoch 34 evaluating [time: 0.30s, valid_score: 0.213900]
+Tue 09 Sep 2025 23:25:53 INFO  valid result: 
+hit@10 : 0.3687    ndcg@10 : 0.2139    mrr@10 : 0.1665
+Tue 09 Sep 2025 23:25:53 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 23:31:17 INFO  epoch 35 training [time: 323.70s, train loss: 4408.6332]
+Tue 09 Sep 2025 23:31:17 INFO  epoch 35 evaluating [time: 0.30s, valid_score: 0.212500]
+Tue 09 Sep 2025 23:31:17 INFO  valid result: 
+hit@10 : 0.3666    ndcg@10 : 0.2125    mrr@10 : 0.1655
+Tue 09 Sep 2025 23:36:40 INFO  epoch 36 training [time: 323.55s, train loss: 4404.6458]
+Tue 09 Sep 2025 23:36:41 INFO  epoch 36 evaluating [time: 0.30s, valid_score: 0.215200]
+Tue 09 Sep 2025 23:36:41 INFO  valid result: 
+hit@10 : 0.3742    ndcg@10 : 0.2152    mrr@10 : 0.1666
+Tue 09 Sep 2025 23:36:41 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Tue 09 Sep 2025 23:42:04 INFO  epoch 37 training [time: 323.18s, train loss: 4403.0125]
+Tue 09 Sep 2025 23:42:04 INFO  epoch 37 evaluating [time: 0.30s, valid_score: 0.213800]
+Tue 09 Sep 2025 23:42:04 INFO  valid result: 
+hit@10 : 0.3704    ndcg@10 : 0.2138    mrr@10 : 0.1659
+Tue 09 Sep 2025 23:47:27 INFO  epoch 38 training [time: 323.08s, train loss: 4399.8684]
+Tue 09 Sep 2025 23:47:28 INFO  epoch 38 evaluating [time: 0.30s, valid_score: 0.213000]
+Tue 09 Sep 2025 23:47:28 INFO  valid result: 
+hit@10 : 0.3646    ndcg@10 : 0.213    mrr@10 : 0.1665
+Tue 09 Sep 2025 23:52:50 INFO  epoch 39 training [time: 322.74s, train loss: 4397.5159]
+Tue 09 Sep 2025 23:52:51 INFO  epoch 39 evaluating [time: 0.30s, valid_score: 0.214700]
+Tue 09 Sep 2025 23:52:51 INFO  valid result: 
+hit@10 : 0.3714    ndcg@10 : 0.2147    mrr@10 : 0.1668
+Tue 09 Sep 2025 23:58:12 INFO  epoch 40 training [time: 321.59s, train loss: 4395.8274]
+Tue 09 Sep 2025 23:58:13 INFO  epoch 40 evaluating [time: 0.29s, valid_score: 0.213200]
+Tue 09 Sep 2025 23:58:13 INFO  valid result: 
+hit@10 : 0.3712    ndcg@10 : 0.2132    mrr@10 : 0.1649
+Wed 10 Sep 2025 00:03:35 INFO  epoch 41 training [time: 322.62s, train loss: 4392.3253]
+Wed 10 Sep 2025 00:03:35 INFO  epoch 41 evaluating [time: 0.30s, valid_score: 0.213300]
+Wed 10 Sep 2025 00:03:35 INFO  valid result: 
+hit@10 : 0.3697    ndcg@10 : 0.2133    mrr@10 : 0.1653
+Wed 10 Sep 2025 00:08:58 INFO  epoch 42 training [time: 322.91s, train loss: 4389.4578]
+Wed 10 Sep 2025 00:08:59 INFO  epoch 42 evaluating [time: 0.30s, valid_score: 0.212700]
+Wed 10 Sep 2025 00:08:59 INFO  valid result: 
+hit@10 : 0.3699    ndcg@10 : 0.2127    mrr@10 : 0.1647
+Wed 10 Sep 2025 00:14:22 INFO  epoch 43 training [time: 322.92s, train loss: 4386.5063]
+Wed 10 Sep 2025 00:14:22 INFO  epoch 43 evaluating [time: 0.29s, valid_score: 0.212300]
+Wed 10 Sep 2025 00:14:22 INFO  valid result: 
+hit@10 : 0.3651    ndcg@10 : 0.2123    mrr@10 : 0.1655
+Wed 10 Sep 2025 00:19:44 INFO  epoch 44 training [time: 321.79s, train loss: 4384.9548]
+Wed 10 Sep 2025 00:19:44 INFO  epoch 44 evaluating [time: 0.29s, valid_score: 0.214900]
+Wed 10 Sep 2025 00:19:44 INFO  valid result: 
+hit@10 : 0.3679    ndcg@10 : 0.2149    mrr@10 : 0.1681
+Wed 10 Sep 2025 00:25:07 INFO  epoch 45 training [time: 322.58s, train loss: 4382.1742]
+Wed 10 Sep 2025 00:25:07 INFO  epoch 45 evaluating [time: 0.30s, valid_score: 0.216400]
+Wed 10 Sep 2025 00:25:07 INFO  valid result: 
+hit@10 : 0.3712    ndcg@10 : 0.2164    mrr@10 : 0.169
+Wed 10 Sep 2025 00:25:07 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Wed 10 Sep 2025 00:30:30 INFO  epoch 46 training [time: 323.14s, train loss: 4380.5820]
+Wed 10 Sep 2025 00:30:30 INFO  epoch 46 evaluating [time: 0.30s, valid_score: 0.214200]
+Wed 10 Sep 2025 00:30:30 INFO  valid result: 
+hit@10 : 0.3697    ndcg@10 : 0.2142    mrr@10 : 0.1665
+Wed 10 Sep 2025 00:35:54 INFO  epoch 47 training [time: 323.20s, train loss: 4378.7558]
+Wed 10 Sep 2025 00:35:54 INFO  epoch 47 evaluating [time: 0.30s, valid_score: 0.214000]
+Wed 10 Sep 2025 00:35:54 INFO  valid result: 
+hit@10 : 0.37    ndcg@10 : 0.214    mrr@10 : 0.1662
+Wed 10 Sep 2025 00:41:16 INFO  epoch 48 training [time: 321.79s, train loss: 4376.7887]
+Wed 10 Sep 2025 00:41:16 INFO  epoch 48 evaluating [time: 0.29s, valid_score: 0.214700]
+Wed 10 Sep 2025 00:41:16 INFO  valid result: 
+hit@10 : 0.3727    ndcg@10 : 0.2147    mrr@10 : 0.1664
+Wed 10 Sep 2025 00:46:39 INFO  epoch 49 training [time: 322.78s, train loss: 4374.7744]
+Wed 10 Sep 2025 00:46:39 INFO  epoch 49 evaluating [time: 0.30s, valid_score: 0.213900]
+Wed 10 Sep 2025 00:46:39 INFO  valid result: 
+hit@10 : 0.3715    ndcg@10 : 0.2139    mrr@10 : 0.1658
+Wed 10 Sep 2025 00:52:02 INFO  epoch 50 training [time: 322.74s, train loss: 4371.7657]
+Wed 10 Sep 2025 00:52:02 INFO  epoch 50 evaluating [time: 0.29s, valid_score: 0.217100]
+Wed 10 Sep 2025 00:52:02 INFO  valid result: 
+hit@10 : 0.3732    ndcg@10 : 0.2171    mrr@10 : 0.1694
+Wed 10 Sep 2025 00:52:02 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Wed 10 Sep 2025 00:57:23 INFO  epoch 51 training [time: 321.11s, train loss: 4370.2447]
+Wed 10 Sep 2025 00:57:23 INFO  epoch 51 evaluating [time: 0.29s, valid_score: 0.214200]
+Wed 10 Sep 2025 00:57:23 INFO  valid result: 
+hit@10 : 0.3709    ndcg@10 : 0.2142    mrr@10 : 0.1665
+Wed 10 Sep 2025 01:02:45 INFO  epoch 52 training [time: 321.79s, train loss: 4368.3212]
+Wed 10 Sep 2025 01:02:46 INFO  epoch 52 evaluating [time: 0.29s, valid_score: 0.214300]
+Wed 10 Sep 2025 01:02:46 INFO  valid result: 
+hit@10 : 0.3717    ndcg@10 : 0.2143    mrr@10 : 0.1662
+Wed 10 Sep 2025 01:08:08 INFO  epoch 53 training [time: 322.62s, train loss: 4368.2506]
+Wed 10 Sep 2025 01:08:08 INFO  epoch 53 evaluating [time: 0.30s, valid_score: 0.217300]
+Wed 10 Sep 2025 01:08:08 INFO  valid result: 
+hit@10 : 0.3719    ndcg@10 : 0.2173    mrr@10 : 0.17
+Wed 10 Sep 2025 01:08:09 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Wed 10 Sep 2025 01:13:31 INFO  epoch 54 training [time: 322.93s, train loss: 4365.4517]
+Wed 10 Sep 2025 01:13:32 INFO  epoch 54 evaluating [time: 0.29s, valid_score: 0.215800]
+Wed 10 Sep 2025 01:13:32 INFO  valid result: 
+hit@10 : 0.3707    ndcg@10 : 0.2158    mrr@10 : 0.1684
+Wed 10 Sep 2025 01:18:54 INFO  epoch 55 training [time: 322.19s, train loss: 4363.4484]
+Wed 10 Sep 2025 01:18:54 INFO  epoch 55 evaluating [time: 0.29s, valid_score: 0.218200]
+Wed 10 Sep 2025 01:18:54 INFO  valid result: 
+hit@10 : 0.3738    ndcg@10 : 0.2182    mrr@10 : 0.1705
+Wed 10 Sep 2025 01:18:54 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Wed 10 Sep 2025 01:24:17 INFO  epoch 56 training [time: 322.28s, train loss: 4361.4884]
+Wed 10 Sep 2025 01:24:17 INFO  epoch 56 evaluating [time: 0.29s, valid_score: 0.215600]
+Wed 10 Sep 2025 01:24:17 INFO  valid result: 
+hit@10 : 0.3715    ndcg@10 : 0.2156    mrr@10 : 0.1678
+Wed 10 Sep 2025 01:29:38 INFO  epoch 57 training [time: 321.35s, train loss: 4360.3534]
+Wed 10 Sep 2025 01:29:39 INFO  epoch 57 evaluating [time: 0.29s, valid_score: 0.216100]
+Wed 10 Sep 2025 01:29:39 INFO  valid result: 
+hit@10 : 0.3697    ndcg@10 : 0.2161    mrr@10 : 0.169
+Wed 10 Sep 2025 01:35:01 INFO  epoch 58 training [time: 322.85s, train loss: 4358.8595]
+Wed 10 Sep 2025 01:35:02 INFO  epoch 58 evaluating [time: 0.29s, valid_score: 0.217100]
+Wed 10 Sep 2025 01:35:02 INFO  valid result: 
+hit@10 : 0.3705    ndcg@10 : 0.2171    mrr@10 : 0.17
+Wed 10 Sep 2025 01:40:25 INFO  epoch 59 training [time: 323.43s, train loss: 4357.5261]
+Wed 10 Sep 2025 01:40:25 INFO  epoch 59 evaluating [time: 0.29s, valid_score: 0.217100]
+Wed 10 Sep 2025 01:40:25 INFO  valid result: 
+hit@10 : 0.374    ndcg@10 : 0.2171    mrr@10 : 0.1692
+Wed 10 Sep 2025 01:45:48 INFO  epoch 60 training [time: 322.90s, train loss: 4354.9947]
+Wed 10 Sep 2025 01:45:49 INFO  epoch 60 evaluating [time: 0.30s, valid_score: 0.216800]
+Wed 10 Sep 2025 01:45:49 INFO  valid result: 
+hit@10 : 0.3745    ndcg@10 : 0.2168    mrr@10 : 0.1684
+Wed 10 Sep 2025 01:51:12 INFO  epoch 61 training [time: 323.86s, train loss: 4353.8276]
+Wed 10 Sep 2025 01:51:13 INFO  epoch 61 evaluating [time: 0.30s, valid_score: 0.219000]
+Wed 10 Sep 2025 01:51:13 INFO  valid result: 
+hit@10 : 0.3742    ndcg@10 : 0.219    mrr@10 : 0.1715
+Wed 10 Sep 2025 01:51:13 INFO  Saving current: saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Wed 10 Sep 2025 01:56:35 INFO  epoch 62 training [time: 322.69s, train loss: 4353.6883]
+Wed 10 Sep 2025 01:56:36 INFO  epoch 62 evaluating [time: 0.30s, valid_score: 0.217300]
+Wed 10 Sep 2025 01:56:36 INFO  valid result: 
+hit@10 : 0.374    ndcg@10 : 0.2173    mrr@10 : 0.1694
+Wed 10 Sep 2025 02:01:59 INFO  epoch 63 training [time: 322.80s, train loss: 4351.7159]
+Wed 10 Sep 2025 02:01:59 INFO  epoch 63 evaluating [time: 0.30s, valid_score: 0.216100]
+Wed 10 Sep 2025 02:01:59 INFO  valid result: 
+hit@10 : 0.37    ndcg@10 : 0.2161    mrr@10 : 0.1689
+Wed 10 Sep 2025 02:07:22 INFO  epoch 64 training [time: 322.80s, train loss: 4349.4167]
+Wed 10 Sep 2025 02:07:22 INFO  epoch 64 evaluating [time: 0.30s, valid_score: 0.216900]
+Wed 10 Sep 2025 02:07:22 INFO  valid result: 
+hit@10 : 0.3724    ndcg@10 : 0.2169    mrr@10 : 0.1693
+Wed 10 Sep 2025 02:12:45 INFO  epoch 65 training [time: 323.16s, train loss: 4348.2149]
+Wed 10 Sep 2025 02:12:45 INFO  epoch 65 evaluating [time: 0.29s, valid_score: 0.217900]
+Wed 10 Sep 2025 02:12:45 INFO  valid result: 
+hit@10 : 0.3735    ndcg@10 : 0.2179    mrr@10 : 0.1702
+Wed 10 Sep 2025 02:18:05 INFO  epoch 66 training [time: 319.15s, train loss: 4346.1004]
+Wed 10 Sep 2025 02:18:05 INFO  epoch 66 evaluating [time: 0.30s, valid_score: 0.217200]
+Wed 10 Sep 2025 02:18:05 INFO  valid result: 
+hit@10 : 0.3724    ndcg@10 : 0.2172    mrr@10 : 0.1697
+Wed 10 Sep 2025 02:23:28 INFO  epoch 67 training [time: 323.26s, train loss: 4345.6808]
+Wed 10 Sep 2025 02:23:28 INFO  epoch 67 evaluating [time: 0.30s, valid_score: 0.216900]
+Wed 10 Sep 2025 02:23:28 INFO  valid result: 
+hit@10 : 0.3719    ndcg@10 : 0.2169    mrr@10 : 0.1693
+Wed 10 Sep 2025 02:28:52 INFO  epoch 68 training [time: 323.14s, train loss: 4344.0148]
+Wed 10 Sep 2025 02:28:52 INFO  epoch 68 evaluating [time: 0.30s, valid_score: 0.216100]
+Wed 10 Sep 2025 02:28:52 INFO  valid result: 
+hit@10 : 0.3737    ndcg@10 : 0.2161    mrr@10 : 0.1679
+Wed 10 Sep 2025 02:34:15 INFO  epoch 69 training [time: 322.99s, train loss: 4343.1946]
+Wed 10 Sep 2025 02:34:15 INFO  epoch 69 evaluating [time: 0.30s, valid_score: 0.213900]
+Wed 10 Sep 2025 02:34:15 INFO  valid result: 
+hit@10 : 0.3694    ndcg@10 : 0.2139    mrr@10 : 0.1662
+Wed 10 Sep 2025 02:39:38 INFO  epoch 70 training [time: 322.87s, train loss: 4341.0674]
+Wed 10 Sep 2025 02:39:38 INFO  epoch 70 evaluating [time: 0.29s, valid_score: 0.217500]
+Wed 10 Sep 2025 02:39:38 INFO  valid result: 
+hit@10 : 0.3732    ndcg@10 : 0.2175    mrr@10 : 0.1698
+Wed 10 Sep 2025 02:45:01 INFO  epoch 71 training [time: 323.19s, train loss: 4340.5607]
+Wed 10 Sep 2025 02:45:02 INFO  epoch 71 evaluating [time: 0.30s, valid_score: 0.216700]
+Wed 10 Sep 2025 02:45:02 INFO  valid result: 
+hit@10 : 0.3748    ndcg@10 : 0.2167    mrr@10 : 0.1684
+Wed 10 Sep 2025 02:50:25 INFO  epoch 72 training [time: 323.14s, train loss: 4339.2061]
+Wed 10 Sep 2025 02:50:25 INFO  epoch 72 evaluating [time: 0.30s, valid_score: 0.216300]
+Wed 10 Sep 2025 02:50:25 INFO  valid result: 
+hit@10 : 0.3748    ndcg@10 : 0.2163    mrr@10 : 0.1677
+Wed 10 Sep 2025 02:50:25 INFO  Finished training, best eval result in epoch 61
+Wed 10 Sep 2025 02:50:25 INFO  Loading model structure and parameters from saved/SS4Rec-Sep-09-2025_20-17-44.pth
+Wed 10 Sep 2025 02:50:27 INFO  The running environment of this training is as follows:
++-------------+-----------------+
+| Environment |      Usage      |
++=============+=================+
+| CPU         |     2.20 %      |
++-------------+-----------------+
+| GPU         | 22.26 G/23.64 G |
++-------------+-----------------+
+| Memory      | 5.62 G/251.50 G |
++-------------+-----------------+
+Wed 10 Sep 2025 02:50:27 INFO  best valid : OrderedDict([('hit@10', 0.3742), ('ndcg@10', 0.219), ('mrr@10', 0.1715)])
+Wed 10 Sep 2025 02:50:27 INFO  test result: OrderedDict([('hit@10', 0.3477), ('ndcg@10', 0.2056), ('mrr@10', 0.162)])
