@@ -3,7 +3,7 @@ log_wandb: False
 
 # SS4Rec settings
 hidden_size: 64                 # (int) Number of features in the hidden state. 
-num_layers: 2                   # (int) Number of layers.
+num_layers: 3                   # (int) Number of layers.
 dropout_prob: 0.2               # (float) Dropout rate.
 loss_type: 'CE'                 # (str) Type of loss function. Range in ['BPR', 'CE'].
 
@@ -71,6 +71,10 @@ ml1m_job_classes: 21
 
 # ===== regularization (SSE) =====
 sse_user_p: 0.00            # 배치 내 유저 임베딩을 섞는 확률
-sse_item_p: 0.00            # 아이템(시퀀스) 임베딩을 섞는 확률
-sse_pos_p: 0.00             # 정답 임베딩을 섞는 확률
+sse_item_p: 0.10            # 아이템(시퀀스) 임베딩을 섞는 확률
+sse_pos_p: 0.10             # 정답 임베딩을 섞는 확률
 sse_item_mode: 'global'      # 'batch' | 'global'
+
+#===== item genre (ml-1m only) =====
+ml1m_genre_classes: 18   # (ML-1M 기준 장르 개수, 정확히는 전처리로 확인 필요)
+genre_hidden_size: 32    # 장르 embedding 차원

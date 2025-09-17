@@ -1,0 +1,200 @@
+Tue 16 Sep 2025 15:26:29 INFO  ['run.py', '--config', '2']
+Tue 16 Sep 2025 15:26:29 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2020
+state = INFO
+reproducibility = True
+data_path = dataset/ml-1m
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 200
+train_batch_size = 1024
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = True
+metrics = ['Hit', 'NDCG', 'MRR']
+topk = [10]
+valid_metric = NDCG@10
+valid_metric_bigger = True
+eval_batch_size = 2048
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id', 'timestamp'], 'user': ['user_id', 'age_idx', 'gender_idx', 'job_idx']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [5,inf)
+item_inter_num_interval = [5,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 200
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.SEQUENTIAL
+hidden_size = 64
+num_layers = 2
+dropout_prob = 0.2
+loss_type = CE
+d_state = 32
+d_conv = 4
+expand = 2
+dt_min = 0.001
+dt_max = 0.1
+d_H = 64
+d_P = 32
+MIN_ITEM_LIST_LENGTH = 0
+TIMESTAMP_FIELD = timestamp
+next_n = 1
+user_hidden_size = 32
+ml1m_age_classes = 7
+ml1m_gender_classes = 2
+ml1m_job_classes = 21
+sse_user_p = 0.0
+sse_item_p = 0.0
+sse_pos_p = 0.0
+sse_item_mode = global
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cuda
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Tue 16 Sep 2025 15:26:32 INFO  ml-1m
+The number of users: 6041
+Average actions of users: 165.49850993377484
+The number of items: 3417
+Average actions of items: 292.6261709601874
+The number of inters: 999611
+The sparsity of the dataset: 95.15741545057172%
+Remain Fields: ['user_id', 'item_id', 'timestamp']
+Tue 16 Sep 2025 15:26:32 INFO  Augmentation for sequential recommendation.
+Tue 16 Sep 2025 15:26:47 INFO  [Training]: train_batch_size = [1024] train_neg_sample_args: [{'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}]
+Tue 16 Sep 2025 15:26:47 INFO  [Evaluation]: eval_batch_size = [2048] eval_args: [{'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Tue 16 Sep 2025 15:26:47 INFO  ml-1m
+The number of users: 6041
+Average actions of users: 162.49850993377484
+The number of items: 3417
+Average actions of items: 287.3217213114754
+The number of inters: 981491
+The sparsity of the dataset: 95.24519722971945%
+Remain Fields: ['user_id', 'item_id', 'timestamp', 'item_id_list', 'timestamp_list', 'item_length']
+Tue 16 Sep 2025 15:26:48 INFO  SS4Rec(
+  (item_embedding): Embedding(3417, 64, padding_idx=0)
+  (item_genre_linear): Identity()
+  (item_genre_dropout): Identity()
+  (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+  (dropout): Dropout(p=0.2, inplace=False)
+  (model): ModuleList(
+    (0-1): 2 x SSBlock(
+      (S5): S5(
+        (seq): S5SSM()
+      )
+      (S6): Mamba(
+        (in_proj): Linear(in_features=64, out_features=256, bias=False)
+        (conv1d): Conv1d(128, 128, kernel_size=(4,), stride=(1,), padding=(3,), groups=128)
+        (act): SiLU()
+        (x_proj): Linear(in_features=128, out_features=68, bias=False)
+        (dt_proj): Linear(in_features=4, out_features=128, bias=True)
+        (out_proj): Linear(in_features=128, out_features=64, bias=False)
+      )
+      (dropout): Dropout(p=0.2, inplace=False)
+      (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+    )
+  )
+  (loss_fct): CrossEntropyLoss()
+  (user_feat_linear): Linear(in_features=30, out_features=32, bias=True)
+  (user_dropout): Dropout(p=0.2, inplace=False)
+  (fuse): Linear(in_features=96, out_features=64, bias=True)
+  (fuse_ln): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+)
+Trainable parameters: 316512
+Tue 16 Sep 2025 15:32:17 INFO  epoch 0 training [time: 328.83s, train loss: 6178.7927]
+Tue 16 Sep 2025 15:32:17 INFO  epoch 0 evaluating [time: 0.32s, valid_score: 0.120700]
+Tue 16 Sep 2025 15:32:17 INFO  valid result: 
+hit@10 : 0.2238    ndcg@10 : 0.1207    mrr@10 : 0.0895
+Tue 16 Sep 2025 15:32:17 INFO  Saving current: saved/SS4Rec-Sep-16-2025_15-26-48.pth
+Tue 16 Sep 2025 15:37:43 INFO  epoch 1 training [time: 326.00s, train loss: 5156.7307]
+Tue 16 Sep 2025 15:37:44 INFO  epoch 1 evaluating [time: 0.30s, valid_score: 0.159600]
+Tue 16 Sep 2025 15:37:44 INFO  valid result: 
+hit@10 : 0.2843    ndcg@10 : 0.1596    mrr@10 : 0.1215
+Tue 16 Sep 2025 15:37:44 INFO  Saving current: saved/SS4Rec-Sep-16-2025_15-26-48.pth
+Tue 16 Sep 2025 15:43:13 INFO  epoch 2 training [time: 329.23s, train loss: 4908.2231]
+Tue 16 Sep 2025 15:43:13 INFO  epoch 2 evaluating [time: 0.30s, valid_score: 0.177300]
+Tue 16 Sep 2025 15:43:13 INFO  valid result: 
+hit@10 : 0.3131    ndcg@10 : 0.1773    mrr@10 : 0.1357
+Tue 16 Sep 2025 15:43:13 INFO  Saving current: saved/SS4Rec-Sep-16-2025_15-26-48.pth
+Tue 16 Sep 2025 15:48:42 INFO  epoch 3 training [time: 329.03s, train loss: 4770.9771]
+Tue 16 Sep 2025 15:48:43 INFO  epoch 3 evaluating [time: 0.30s, valid_score: 0.189500]
+Tue 16 Sep 2025 15:48:43 INFO  valid result: 
+hit@10 : 0.3295    ndcg@10 : 0.1895    mrr@10 : 0.1468
+Tue 16 Sep 2025 15:48:43 INFO  Saving current: saved/SS4Rec-Sep-16-2025_15-26-48.pth
+Tue 16 Sep 2025 15:54:11 INFO  epoch 4 training [time: 328.84s, train loss: 4686.2180]
+Tue 16 Sep 2025 15:54:12 INFO  epoch 4 evaluating [time: 0.29s, valid_score: 0.198100]
+Tue 16 Sep 2025 15:54:12 INFO  valid result: 
+hit@10 : 0.3427    ndcg@10 : 0.1981    mrr@10 : 0.1537
+Tue 16 Sep 2025 15:54:12 INFO  Saving current: saved/SS4Rec-Sep-16-2025_15-26-48.pth
+Tue 16 Sep 2025 15:59:40 INFO  epoch 5 training [time: 327.86s, train loss: 4632.1372]
+Tue 16 Sep 2025 15:59:40 INFO  epoch 5 evaluating [time: 0.29s, valid_score: 0.198700]
+Tue 16 Sep 2025 15:59:40 INFO  valid result: 
+hit@10 : 0.3419    ndcg@10 : 0.1987    mrr@10 : 0.1548
+Tue 16 Sep 2025 15:59:40 INFO  Saving current: saved/SS4Rec-Sep-16-2025_15-26-48.pth
